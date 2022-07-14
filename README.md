@@ -23,6 +23,20 @@ Analyze the temperature trends for the months of June and December in Oahu, in o
 
 # Results
 <!-- There is a bulleted list that addresses the three key differences in weather between June and December. (6 pt) -->
+Analysis of the temperature data for the months of June and December in Oahu shows:
+| Statistic | June Tabs | December Tabs |
+| :--- | :---: | :---: |
+| **Count** | 1700 | 1517 |
+| **Mean** | 74.944118 | 71.041529 |
+| **STD** | 3.257417 | 3.745920 |
+| **Minimum** | 64.00 | 56.00 |
+| **25% Qtr** | 73.00 | 69.00 |
+| **50% Qtr** | 75.00 | 71.00 |
+| **75% Qtr** | 77.00 | 74.00 |
+| **Maximum** | 85.00 | 83.00 |
+
+<sup>**Note:** Statistics generated using [SurfsUp_Challenge.ipynb](SurfsUp_Challenge.ipynb) </sup>
+
 The key differences in the weather between June and December are:
 - The average temperature for June is approximately 5 degrees warmer than December.
 - The quartiles are 3-4 degrees higher for June than December.
@@ -32,4 +46,12 @@ The key differences in the weather between June and December are:
 <!-- There is a high-level summary of the results and there are two additional queries to perform to gather more weather data for June and December. (5 pt) -->
 The temperatures in December are slightly lower than June but suitable for a surf and ice cream shop business.  More interesting weather data could be gatherered by analyzing the following queries:
 - Total precipitation levels
-- Amount of precipitation at the most active station
+  ```
+  session.query(Measurement.date, Measurement.prcp).filter(extract('month', Measurement.date) == 6).all()
+  session.query(Measurement.date, Measurement.prcp).filter(extract('month', Measurement.date) == 12).all()
+  ```
+- Amount of precipitation at the most active station, USC00519281
+  ```
+  session.query(Measurement.prcp).filter(Measurement.station == 'USC00519281').filter(extract('month', Measurement.date) == 6).all()
+  session.query(Measurement.prcp).filter(Measurement.station == 'USC00519281').filter(extract('month', Measurement.date) == 12).all()
+  ```
